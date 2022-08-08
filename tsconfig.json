@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "target": "ES2020",
+    "allowJs": true,
+    "sourceMap": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "bin",
+    "importHelpers": false,
+    "rootDir": "src",
+    "types": ["node"]
+  }
+}
