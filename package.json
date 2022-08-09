@@ -23,6 +23,7 @@
     "clean": "rimraf ./bin/*",
     "clean:deep": "npm run clean && rimraf ./node_modules ./package-lock.json",
     "build": "npm run clean && tsc -p .",
+    "postbuild": "node ./scripts/cmd.move-assets.js",
     "local": "npm run build && sudo npm uninstall -g scrowl-builder && sudo npm i -g",
     "refresh": "npm run clean:deep && npm install"
   },
@@ -46,6 +47,7 @@
   },
   "devDependencies": {
     "@types/figlet": "^1.5.4",
+    "@types/fs-extra": "^9.0.13",
     "@types/node": "^18.6.5",
     "rimraf": "^3.0.2"
   }

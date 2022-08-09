@@ -15,5 +15,7 @@
     "importHelpers": false,
     "rootDir": "src",
     "types": ["node"]
-  }
+  },
+  "include": ["./src/**/*.ts", "./src/**/*.d.ts"],
+  "exclude": ["./bin", "./scripts", "./node_modules"]
 }
