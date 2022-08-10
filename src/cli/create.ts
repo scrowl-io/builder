@@ -53,7 +53,7 @@ export const create = (templateName: string) => {
       continue;
     }
 
-    const localFilename = config.filename.replace('/templates', '').replace(extRes.data.ext, '');
+    const localFilename = config.filename.replace('templates/', '').replace(extRes.data.ext, '');
     const localRes = getPathLocal(localFilename);
 
     if (localRes.error) {
