@@ -1,17 +1,36 @@
 {{#with . as | data |}}
 {
-  "name": "scrowl-slide-template-{{{data.name}}}",
+  "name": "scrowl-slide-template-{{{data.kebab}}}",
   "main": "./dist/index.js",
   "dev": "./dev/index.html",
   "types": "./dist/types.d.ts",
   "targets": {
     "main": {
-      "source": "./src/index.ts",
+      "source": "./src/index.tsx",
       "context": "browser"
     },
     "dev": {
       "source": "./dev/index.html"
     }
+  },
+  "scripts": {
+    "start": "parcel serve --target dev --open"
+  },
+  "devDependencies": {
+    "@parcel/core": "2.5.0",
+    "@parcel/packager-ts": "2.5.0",
+    "@parcel/reporter-dev-server": "2.5.0",
+    "@parcel/transformer-sass": "2.5.0",
+    "@parcel/transformer-typescript-types": "2.5.0",
+    "@parcel/validator-typescript": "2.5.0",
+    "@owlui/lib": "^0.0.29",
+    "parcel": "2.5.0",
+    "postcss": "^8.4.16",
+    "postcss-modules": "^4.3.1",
+    "react": "~18.1.0",
+    "react-bootstrap": "2.4.0",
+    "react-dom": "~18.1.0",
+    "typescript": "^4.7.4"
   }
 }
 {{/with}}

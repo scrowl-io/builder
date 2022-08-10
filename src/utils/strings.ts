@@ -13,7 +13,7 @@ export const toLower = (str: string) => {
 };
 
 export const toCamelCase = (str: string) => {
-  let replacedStr = str.replace(/[-_]+(.)?/g, (_, letter) => {
+  let replacedStr = str.replace(/[-_\s]+(.)?/g, (_, letter) => {
     return letter ? letter.toUpperCase() : '';
   });
 
@@ -25,7 +25,7 @@ export const toCapitalize = (str: string) => {
 };
 
 export const toPascalCase = (str: string) => {
-  return toCapitalize(str).replace(/[-_]+(.)?/g, (_, letter) => {
+  return toCapitalize(str).replace(/[-_\s]+(.)?/g, (_, letter) => {
     return letter ? letter.toUpperCase() : '';
   });
 };

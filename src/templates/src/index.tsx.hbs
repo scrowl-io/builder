@@ -1,0 +1,14 @@
+{{#with . as | data |}}
+import React from 'react';
+import * as styles from './styles.module.scss';
+
+export const {{data.pascal}} = () => {
+  return (
+    <div className={{reactClassName data.camel}}>My Slide Template {{data.name}}</div>
+  );
+};
+
+export default {
+  {{data.pascal}},
+};
+{{/with}}

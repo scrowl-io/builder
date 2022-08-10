@@ -5,6 +5,14 @@ engine.registerHelper('raw', opts => {
   return opts.fn();
 });
 
+engine.registerHelper('reactClassName', (str: string) => {
+  if (typeof str !== 'string') {
+    return str;
+  }
+
+  return `{styles.${str}}`;
+})
+
 export const compile = (contents: string, data?: TemplateData): TemplateResult => {
 
   if (!contents) {
@@ -24,8 +32,10 @@ export const compile = (contents: string, data?: TemplateData): TemplateResult =
   } catch (e) {
     return {
       error: true,
-      message: 'Failed to compile template',
+      message: `Failed to compile template`,
       data: {
+        contents,
+        data,
         trace: e,
       },
     };

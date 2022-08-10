@@ -14,6 +14,8 @@ export interface TemplateResultError {
   message: string;
   data?: {
     trace: any;
+    contents: string;
+    data?: TemplateData;
   };
 };
 

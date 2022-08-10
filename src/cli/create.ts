@@ -1,36 +1,65 @@
+import { execSync as exec } from 'child_process';
 import { log } from '../utils/console';
 import { getPath, readFile, getExt, getPathLocal, writeFile } from '../utils/file-system';
 import { compile } from '../utils/templater';
+import { toPascalCase, toCamelCase, toKebabCase } from '../utils/strings';
 
 export const create = (templateName: string) => {
   const data = {
     name: templateName,
+    pascal: toPascalCase(templateName),
+    camel: toCamelCase(templateName),
+    kebab: toKebabCase(templateName),
   };
   const templateConfigs = [
     {
-      dest: './',
       filename: 'templates/.parcelrc.hbs',
     },
     {
-      dest: './',
       filename: 'templates/.postcssrc.hbs',
     },
     {
-      dest: './',
       filename: 'templates/.sassrc.hbs',
-      contents: ''
     },
     {
-      dest: './',
+      filename: 'templates/tsconfig.json.hbs',
+    },
+    {
+      filename: 'templates/types/assets-modules.d.ts.hbs',
+    },
+    {
+      filename: 'templates/.gitignore.hbs',
+    },
+    {
+      filename: 'templates/.npmignore.hbs',
+    },
+    {
       filename: 'templates/package.json.hbs',
+      compile: true,
+    },
+    {
+      filename: 'templates/dev/index.html.hbs',
+      compile: true,
+    },
+    {
+      filename: 'templates/dev/index.tsx.hbs',
+      compile: true,
+    },
+    {
+      filename: 'templates/src/index.tsx.hbs',
+      compile: true,
+    },
+    {
+      filename: 'templates/src/styles.module.scss.hbs',
       compile: true,
     }
   ];
 
+  log(`\ninitializing`, 'log');
+
   for (let i = 0, ii = templateConfigs.length; i < ii; i++) {
     let file = '';
     const config = templateConfigs[i];
-    log(`initializing template: ${config.filename}`, 'log');
     const pathRes = getPath(config.filename);
 
     if (pathRes.error) {
@@ -78,8 +107,16 @@ export const create = (templateName: string) => {
       log(writeRes.message, 'error');
       continue;
     }
+  }
 
-    log(`${config.filename} initialization complete`, 'log');
+  log(`initialization complete`, 'success');
+  log('\ninstalling dependencies', 'info');
+
+  try {
+    exec('npm install');
+    log('install complete', 'success');
+  } catch (e) {
+    log('install failed', 'error');
   }
 };
 
