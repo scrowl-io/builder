@@ -27,7 +27,7 @@ scrowl-builder create <SLIDE-TEMPLATE-NAME>
 For active development of your slide template (this will start a local dev sever with hot reloading):
 
 ```
-scrowl-builder dev
+npm run start
 ```
 
 For distribution:
