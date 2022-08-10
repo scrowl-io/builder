@@ -35,3 +35,19 @@ For distribution:
 ```
 scrowl-builder pack
 ```
+
+## Tool Development
+
+For local development of this tool, follow these steps:
+
+```
+npm install
+```
+
+```
+npm run local
+```
+
+Then create a new project folder and follow the `Getting Started` steps.
+
+If you want a fresh start: `npm run refresh`. This command will uninstall the tool, remove the build and node_modules, and then install the dependencies.
