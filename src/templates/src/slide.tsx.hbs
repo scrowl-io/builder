@@ -1,0 +1,28 @@
+import React from "react"
+
+export type ManifestElement = {
+  value: string | number | boolean
+}
+
+export type Manifest = {
+  version?: string
+  elements: {
+    [key: string]: ManifestElement
+  }
+}
+
+export type SlideProps = React.HTMLAttributes<HTMLDivElement>
+
+export const hasProp = (obj: object, prop: string) => {
+  return Object.prototype.hasOwnProperty.call(obj, prop)
+}
+
+export const Slide = ({ children, className }: SlideProps) => {
+  const cssClasses = className ? `slide ${className}` : "slide"
+
+  return <div className={cssClasses}>{children}</div>
+}
+
+export default {
+  Slide,
+}

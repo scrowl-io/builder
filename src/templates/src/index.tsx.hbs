@@ -1,11 +1,19 @@
 {{#with . as | data |}}
 import React from 'react';
 import * as styles from './styles.module.scss';
+import { Slide, Manifest } from "./slide"
+import { ComponentExample } from "./components"
 
-export const {{data.pascal}} = () => {
+export interface {{data.pascal}}Props {
+  manifest: Manifest
+}
+
+export const {{data.pascal}} = ({ manifest }: {{data.pascal}}Props) => {
   return (
-    <div className={{reactClassName data.camel}}>My Slide Template {{data.name}}</div>
-  );
+    <Slide className={{reactClassName data.camel}}>
+      <ComponentExample data={manifest.elements.componentExample} />
+    </Slide>
+  )
 };
 
 export default {

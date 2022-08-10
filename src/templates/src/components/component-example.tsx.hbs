@@ -1,0 +1,14 @@
+import React from "react"
+import { ManifestElement } from "src/slide"
+
+export interface ComponentExampleProps {
+  data: ManifestElement
+}
+
+export const ComponentExample = ({ data }: ComponentExampleProps) => {
+  return <div>{data.value}</div>
+}
+
+export default {
+  ComponentExample,
+}

@@ -52,6 +52,15 @@ export const create = (templateName: string) => {
     {
       filename: 'templates/src/styles.module.scss.hbs',
       compile: true,
+    },
+    {
+      filename: 'templates/src/components/component-example.tsx.hbs'
+    },
+    {
+      filename: 'templates/src/components/index.ts.hbs'
+    },
+    {
+      filename: 'templates/src/slide.tsx.hbs' // TODO put Slide as a lib in Scrowl to be made as a dependency
     }
   ];
 
