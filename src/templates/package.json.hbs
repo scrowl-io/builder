@@ -1,8 +1,9 @@
+{{#with . as | data |}}
 {
-  "name": "{{{name}}}"
+  "name": "scrowl-slide-template-{{{data.name}}}",
   "main": "./dist/index.js",
   "dev": "./dev/index.html",
-  "types": "./dist/types.d.ts"
+  "types": "./dist/types.d.ts",
   "targets": {
     "main": {
       "source": "./src/index.ts",
@@ -13,3 +14,4 @@
     }
   }
 }
+{{/with}}

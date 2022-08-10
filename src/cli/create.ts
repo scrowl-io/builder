@@ -1,9 +1,10 @@
 import { log } from '../utils/console';
-import { getPath, readFile, getExt, getPathLocal } from '../utils/file-system';
+import { getPath, readFile, getExt, getPathLocal, writeFile } from '../utils/file-system';
+import { compile } from '../utils/templater';
 
-export const create = (name: string) => {
+export const create = (templateName: string) => {
   const data = {
-    name,
+    name: templateName,
   };
   const templateConfigs = [
     {
@@ -22,11 +23,12 @@ export const create = (name: string) => {
     {
       dest: './',
       filename: 'templates/package.json.hbs',
+      compile: true,
     }
   ];
-  const processedTemplates = [];
 
   for (let i = 0, ii = templateConfigs.length; i < ii; i++) {
+    let file = '';
     const config = templateConfigs[i];
     log(`initializing template: ${config.filename}`, 'log');
     const pathRes = getPath(config.filename);
@@ -43,6 +45,7 @@ export const create = (name: string) => {
       continue;
     }
 
+    file = readRes.data.contents;
     const extRes = getExt(config.filename);
 
     if (extRes.error) {
@@ -58,14 +61,26 @@ export const create = (name: string) => {
       continue;
     }
 
-    processedTemplates.push({
-      filename: localRes.data.url,
-      contents: readRes.data.contents,
-    });
+    if (config.compile) {
+      const compileRes = compile(file, data);
+
+      if (compileRes.error) {
+        log(compileRes.message, 'error');
+        continue;
+      }
+
+      file = compileRes.data.contents;
+    }
+
+    const writeRes = writeFile(localRes.data.url, file);
+
+    if (writeRes.error) {
+      log(writeRes.message, 'error');
+      continue;
+    }
+
     log(`${config.filename} initialization complete`, 'log');
   }
-
-  console.log(processedTemplates);
 };
 
 export default {
