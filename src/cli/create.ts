@@ -46,6 +46,10 @@ export const create = (templateName: string) => {
       compile: true,
     },
     {
+      filename: 'templates/dev/app.module.scss.hbs',
+      compile: true,
+    },
+    {
       filename: 'templates/src/index.tsx.hbs',
       compile: true,
     },
@@ -61,6 +65,9 @@ export const create = (templateName: string) => {
     },
     {
       filename: 'templates/src/slide.tsx.hbs' // TODO put Slide as a lib in Scrowl to be made as a dependency
+    },
+    {
+      filename: 'templates/src/slide.module.scss.hbs' // TODO put Slide as a lib in Scrowl to be made as a dependency
     }
   ];
 

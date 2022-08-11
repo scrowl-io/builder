@@ -1,4 +1,27 @@
 import React from "react"
+import * as styles from "./slide.module.scss"
+
+export type AspectRatios = {
+  "4:3": {
+    label: "Standard 4:3"
+    width: 1920
+    height: 1440
+  }
+  "16:9": {
+    label: "Widescreen 16:9"
+    width: 1920
+    height: 1080
+  }
+  "16:10": {
+    label: "Widescreen 16:10"
+    width: 1920
+    height: 1200
+  }
+}
+
+export type SlideCommons = {
+  aspect: keyof AspectRatios
+}
 
 export type ManifestElement = {
   value: string | number | boolean
@@ -6,23 +29,60 @@ export type ManifestElement = {
 
 export type Manifest = {
   version?: string
+  slide: SlideCommons
   elements: {
     [key: string]: ManifestElement
   }
 }
 
-export type SlideProps = React.HTMLAttributes<HTMLDivElement>
+export type SlideProps = React.HTMLAttributes<HTMLDivElement> & {
+  options: SlideCommons
+}
+
+const aspectRatios: AspectRatios = {
+  "4:3": {
+    label: "Standard 4:3",
+    width: 1920,
+    height: 1440,
+  },
+  "16:9": {
+    label: "Widescreen 16:9",
+    width: 1920,
+    height: 1080,
+  },
+  "16:10": {
+    label: "Widescreen 16:10",
+    width: 1920,
+    height: 1200,
+  },
+}
 
 export const hasProp = (obj: object, prop: string) => {
   return Object.prototype.hasOwnProperty.call(obj, prop)
 }
 
-export const Slide = ({ children, className }: SlideProps) => {
-  const cssClasses = className ? `slide ${className}` : "slide"
+export const Slide = ({ children, className, options }: SlideProps) => {
+  const cssClasses = className
+    ? `${styles.slide} ${className}`
+    : `${styles.slide}`
+  const ratio =
+    options.aspect && hasProp(aspectRatios, options.aspect)
+      ? options.aspect
+      : "16:9"
+  const aspect = aspectRatios[ratio]
+  const style = {
+    width: `${aspect.width}px`,
+    height: `${aspect.height}px`,
+  }
 
-  return <div className={cssClasses}>{children}</div>
+  return (
+    <div className={cssClasses} style={style}>
+      {children}
+    </div>
+  )
 }
 
 export default {
   Slide,
 }
+

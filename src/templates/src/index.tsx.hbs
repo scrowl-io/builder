@@ -10,8 +10,8 @@ export interface {{data.pascal}}Props {
 
 export const {{data.pascal}} = ({ manifest }: {{data.pascal}}Props) => {
   return (
-    <Slide className={{reactClassName data.camel}}>
-      <ComponentExample data={manifest.elements.componentExample} />
+    <Slide className={{reactClassName data.camel}} options={manifest.slide}>
+      <ComponentExample options={manifest.elements.componentExample} />
     </Slide>
   )
 };

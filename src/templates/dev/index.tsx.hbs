@@ -1,12 +1,17 @@
 {{#with . as | data |}}
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import * as styles from "./app.module.scss"
 import { {{data.pascal}} } from '../src';
+import { Manifest } from "../src/slide"
 
 const container = document.getElementById('app') as HTMLElement;
 const root = createRoot(container);
 
-const manifest = {
+const manifest: Manifest = {
+  slide: {
+    aspect: "16:9",
+  },
   elements: {
     componentExample: {
       value: "Hello World",
@@ -14,5 +19,6 @@ const manifest = {
   },
 }
 
+document.body.className = styles.body
 root.render(<{{data.pascal}} manifest={manifest} />);
 {{/with}}
