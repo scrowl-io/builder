@@ -14,6 +14,8 @@
     }
   },
   "scripts": {
+    "update": "scrowl-builder update",
+    "prestart": "npm run update",
     "start": "parcel serve --target dev --no-cache --open"
   },
   "devDependencies": {

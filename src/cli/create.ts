@@ -1,19 +1,13 @@
+import { CreateData } from './types';
 import { execSync as exec } from 'child_process';
 import { log } from '../utils/console';
-import { getPath, readFile, getExt, getPathLocal, writeFile } from '../utils/file-system';
+import { writeFile } from '../utils/file-system';
+import { toLocal } from './templates';
 import { compile } from '../utils/templater';
 import { toPascalCase, toCamelCase, toKebabCase } from '../utils/strings';
 
-export type TemplateData = {
-  name: string;
-  pascal: string;
-  camel: string;
-  kebab: string;
-  [key: string]: string;
-}
-
 export const create = (templateName: string) => {
-  const data: TemplateData = {
+  const data: CreateData = {
     name: templateName,
     pascal: toPascalCase(templateName),
     camel: toCamelCase(templateName),
@@ -92,35 +86,14 @@ export const create = (templateName: string) => {
   for (let i = 0, ii = templateConfigs.length; i < ii; i++) {
     let file = '';
     const config = templateConfigs[i];
-    const pathRes = getPath(config.filename);
-
-    if (pathRes.error) {
-      log(pathRes.message, 'error');
-      continue;
-    }
-
-    const readRes = readFile(pathRes.data.url);
-
-    if (readRes.error) {
-      log(readRes.message, 'error');
-      continue;
-    }
-
-    file = readRes.data.contents;
-    const extRes = getExt(config.filename);
-
-    if (extRes.error) {
-      log(extRes.message, 'error');
-      continue;
-    }
-
-    const localFilename = config.filename.replace('templates/', '').replace(extRes.data.ext, '');
-    const localRes = getPathLocal(localFilename);
+    const localRes = toLocal(config.filename);
 
     if (localRes.error) {
       log(localRes.message, 'error');
       continue;
     }
+
+    file = localRes.data.contents;
 
     if (config.compile) {
       const compileRes = compile(file, data);
@@ -146,7 +119,7 @@ export const create = (templateName: string) => {
   }
 
   log(`initialization complete`, 'success');
-  log('\ninstalling dependencies', 'info');
+  log('\ninstalling dependencies', 'log');
 
   try {
     exec('npm install');

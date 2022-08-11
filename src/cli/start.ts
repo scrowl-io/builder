@@ -1,5 +1,6 @@
 import { program } from 'commander';
 import { create } from './create';
+import { update } from './update';
 import { clear, print } from '../utils/console';
 import { toAsciiArt } from '../utils/strings';
 
@@ -14,6 +15,13 @@ program
   .argument('<string>', 'Template name')
   .action((name) => {
     create(name);
+  });
+
+program
+  .command('update')
+  .description('Update manifest in app')
+  .action(() => {
+    update();
   });
 
 export const start = () => {
