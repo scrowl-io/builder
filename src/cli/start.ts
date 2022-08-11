@@ -1,6 +1,7 @@
 import { program } from 'commander';
 import { create } from './create';
 import { update } from './update';
+import { watch } from './watch';
 import { clear, print } from '../utils/console';
 import { toAsciiArt } from '../utils/strings';
 
@@ -22,6 +23,13 @@ program
   .description('Update manifest in app')
   .action(() => {
     update();
+  });
+
+program
+  .command('watch')
+  .description('Watches for changes in manifest then updates')
+  .action(() => {
+    watch();
   });
 
 export const start = () => {

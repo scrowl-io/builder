@@ -15,8 +15,9 @@
   },
   "scripts": {
     "update": "scrowl-builder update",
-    "prestart": "npm run update",
-    "start": "parcel serve --target dev --no-cache --open"
+    "watch": "scrowl-builder watch",
+    "serve": "parcel serve --target dev --no-cache --open",
+    "start": "concurrently --raw \"npm run serve\" \"npm run watch\""
   },
   "devDependencies": {
     "@owlui/lib": "^0.0.29",
@@ -28,6 +29,7 @@
     "@parcel/validator-typescript": "2.5.0",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
+    "concurrently": "^7.3.0",
     "parcel": "2.5.0",
     "postcss": "^8.4.16",
     "postcss-modules": "^4.3.1",
