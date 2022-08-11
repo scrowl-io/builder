@@ -4,8 +4,16 @@ import { getPath, readFile, getExt, getPathLocal, writeFile } from '../utils/fil
 import { compile } from '../utils/templater';
 import { toPascalCase, toCamelCase, toKebabCase } from '../utils/strings';
 
+export type TemplateData = {
+  name: string;
+  pascal: string;
+  camel: string;
+  kebab: string;
+  [key: string]: string;
+}
+
 export const create = (templateName: string) => {
-  const data = {
+  const data: TemplateData = {
     name: templateName,
     pascal: toPascalCase(templateName),
     camel: toCamelCase(templateName),
@@ -25,6 +33,9 @@ export const create = (templateName: string) => {
       filename: 'templates/tsconfig.json.hbs',
     },
     {
+      filename: 'templates/types/globals.d.ts.hbs',
+    },
+    {
       filename: 'templates/types/assets-modules.d.ts.hbs',
     },
     {
@@ -32,6 +43,11 @@ export const create = (templateName: string) => {
     },
     {
       filename: 'templates/.npmignore.hbs',
+    },
+    {
+      filename: 'templates/manifest.json.hbs',
+      saveContents: true,
+      saveAs: 'manifest'
     },
     {
       filename: 'templates/package.json.hbs',
@@ -122,6 +138,10 @@ export const create = (templateName: string) => {
     if (writeRes.error) {
       log(writeRes.message, 'error');
       continue;
+    }
+
+    if (config.saveContents && config.saveAs) {
+      data[config.saveAs] = file;
     }
   }
 
