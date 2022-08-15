@@ -1,18 +1,18 @@
 {{#with . as | data |}}
 import React from 'react';
 import * as styles from './styles.module.scss';
-import { Slide, Manifest } from "./slide"
+import { ManifestElements } from "./slide"
 import { ComponentExample } from "./components"
 
 export interface {{data.pascal}}Props {
-  manifest: Manifest
+  manifest: ManifestElements
 }
 
 export const {{data.pascal}} = ({ manifest }: {{data.pascal}}Props) => {
   return (
-    <Slide className={{reactClassName data.camel}} options={manifest.slide}>
-      <ComponentExample options={manifest.elements.componentExample} />
-    </Slide>
+    <div className={styles.imageGrid}>
+      <ComponentExample options={manifest.componentExample} />
+    </div>
   )
 };
 

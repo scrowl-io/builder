@@ -2,11 +2,16 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import * as styles from "./app.module.scss"
+import { Slide } from "../src/slide"
 import { {{data.pascal}} } from '../src'
 
 const container = document.getElementById('app') as HTMLElement;
 const root = createRoot(container);
 
 document.body.className = styles.body
-root.render(<{{data.pascal}} manifest={window.__MANIFEST} />);
+root.render(
+  <Slide options={window.__MANIFEST.slide}>
+    <{{data.pascal}} manifest={window.__MANIFEST.elements} />
+  </Slide>
+);
 {{/with}}

@@ -27,12 +27,14 @@ export type ManifestElement = {
   value: string | number | boolean
 }
 
+export type ManifestElements = {
+  [key: string]: ManifestElement
+}
+
 export type Manifest = {
   version?: string
   slide: SlideCommons
-  elements: {
-    [key: string]: ManifestElement
-  }
+  elements: ManifestElements
 }
 
 export type SlideProps = React.HTMLAttributes<HTMLDivElement> & {
