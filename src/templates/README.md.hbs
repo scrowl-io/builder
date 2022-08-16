@@ -1,0 +1,57 @@
+{{#with . as | data |}}
+
+# Scrowl Slide Template {{data.name}}
+
+This project was created using `Scrowl Builder`.
+
+---
+
+> The expectation of your source files is that they are built with Typescript, React, and Css Modules.
+
+---
+
+## Commands
+
+```
+npm run start
+```
+
+The above command will launch a local development server. It will watch for changes in `./src` and `./manifest.json` and hot reload.
+
+```
+npm run build
+```
+
+The above command will build the project so that it can be consumed by Scrowl.
+
+## Getting Started
+
+The entry point for this project is (and needs to be) `./src/index.tsx`. This file needs to export a functional React component with the name that is declared in `./manifest.json` property `meta.component`. The above setup is what allows `Scrowl` to consume and use your slide template.
+
+When built using `Scrowl Builder`, the project comes with an example of how to structure your template.
+
+`./src/index.tsx` acts as your wrapper for the slide template and your various other bits of your template should be contained under `./src/components`. Your template wrapper will be sent a single property `manifest`. This manifest tells `Scrowl` how to communicate with your template. The manifest data is the `elements` property in `./manifest.json`.
+
+The wrapper component will have to feed the appropriate manifest data to the child components of your template. For example:
+
+```javascript
+export const WrapperExample = ({ manifest }: ImageGridProps) => {
+  return (
+    <div className={styles.imageGrid}>
+      <ComponentExample options={manifest.componentExample} />
+    </div>
+  )
+}
+```
+
+The child component can then use that data:
+
+```javascript
+export const ComponentExample = ({ options }: ComponentExampleProps) => {
+  return <div>{options.value}</div>
+}
+```
+
+The manifest data that can be sent to the child component is highly structured and is defined by the `ManifestElement` type.
+
+{{/with}}

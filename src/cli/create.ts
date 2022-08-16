@@ -45,6 +45,10 @@ export const create = (templateName: string) => {
       compile: true,
     },
     {
+      filename: 'templates/README.md.hbs',
+      compile: true,
+    },
+    {
       filename: 'templates/package.json.hbs',
       compile: true,
     },
