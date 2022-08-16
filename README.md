@@ -33,7 +33,7 @@ npm run start
 For distribution:
 
 ```
-scrowl-builder pack
+npm run build
 ```
 
 ## Tool Development

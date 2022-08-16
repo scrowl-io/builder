@@ -1,5 +1,6 @@
 import path from 'path';
 import fs from 'fs-extra';
+import ZipService from 'adm-zip';
 
 import { FSResult } from './file-system.types';
 import { JsonResult } from './objects.types';
@@ -185,9 +186,87 @@ export const writeFile = (filename: string, contents: string | JsonResult): FSRe
   }
 }
 
+export const copyLocal = (source: string, dest: string): FSResult => {
+  if (!source) {
+    return createResultError('Unable to copy: source path required');
+  }
+
+  if (!dest) {
+    return createResultError('Unable to copy: destination path required');
+  }
+
+  try {
+    const sourcePathRes = getPathLocal(source);
+
+    if (sourcePathRes.error) {
+      return sourcePathRes;
+    }
+
+    const destPathRes = getPathLocal(dest);
+
+    if (destPathRes.error) {
+      return destPathRes;
+    }
+
+    fs.copySync(sourcePathRes.data.url, destPathRes.data.url);
+
+    return {
+      error: false,
+      data: {
+        source,
+        dest,
+      }
+    }
+  } catch (e) {
+    return createResultError(`Unable to copy ${source} to ${dest}`, e);
+  }
+};
+
+export const archiveLocal = (source: string, dest: string): FSResult => {
+  if (!source) {
+    return createResultError('Unable to archive: source path required');
+  }
+
+  if (!dest) {
+    return createResultError('Unable to archive: destination path required');
+  }
+
+  try {
+    const sourcePathRes = getPathLocal(source);
+
+    if (sourcePathRes.error) {
+      return sourcePathRes;
+    }
+
+    const destPathRes = getPathLocal(dest);
+
+    if (destPathRes.error) {
+      return destPathRes;
+    }
+
+    const zip = new ZipService();
+
+    zip.addLocalFolder(sourcePathRes.data.url);
+    zip.writeZip(destPathRes.data.url);
+
+    return {
+      error: false,
+      data: {
+        source,
+        dest,
+      }
+    }
+  } catch (e) {
+    console.error(e);
+    return createResultError(`Unable to archive ${source} to ${dest}`, e);
+  }
+};
+
 export default {
   getExt,
   getPath,
   getPathLocal,
   readFile,
+  copyLocal,
+  archiveLocal,
 };

@@ -41,22 +41,23 @@ export const create = (templateName: string) => {
     {
       filename: 'templates/manifest.json.hbs',
       saveContents: true,
-      saveAs: 'manifest'
+      saveAs: 'manifest',
+      compile: true,
     },
     {
       filename: 'templates/package.json.hbs',
       compile: true,
     },
     {
-      filename: 'templates/dev/index.html.hbs',
+      filename: 'templates/dev/src/index.html.hbs',
       compile: true,
     },
     {
-      filename: 'templates/dev/index.tsx.hbs',
+      filename: 'templates/dev/src/index.tsx.hbs',
       compile: true,
     },
     {
-      filename: 'templates/dev/app.module.scss.hbs',
+      filename: 'templates/dev/src/app.module.scss.hbs',
       compile: true,
     },
     {

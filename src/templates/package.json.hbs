@@ -1,23 +1,32 @@
 {{#with . as | data |}}
 {
   "name": "scrowl-slide-template-{{{data.kebab}}}",
-  "main": "./dist/index.js",
+  "main": "./build/index.js",
   "dev": "./dev/index.html",
-  "types": "./dist/types.d.ts",
   "targets": {
     "main": {
       "source": "./src/index.tsx",
-      "context": "browser"
+      "context": "browser",
+      "isLibrary": true,
+      "distDir": "./build"
     },
     "dev": {
-      "source": "./dev/index.html"
+      "source": "./dev/src/index.html",
+      "distDir": "./dev"
     }
   },
   "scripts": {
     "update": "scrowl-builder update",
     "watch": "scrowl-builder watch",
-    "serve": "parcel serve --target dev --no-cache --open",
-    "start": "concurrently --raw \"npm run serve\" \"npm run watch\""
+    "serve": "parcel serve --target dev --dist-dir ./dev --no-cache --open",
+    "start": "concurrently --raw \"npm run serve\" \"npm run watch\"",
+    "build": "parcel build --target main",
+    "postbuild": "scrowl-builder pack"
+  },
+  "dependencies": {
+    "react": "~18.1.0",
+    "react-bootstrap": "2.4.0",
+    "react-dom": "~18.1.0"
   },
   "devDependencies": {
     "@owlui/lib": "^0.0.29",
@@ -33,9 +42,6 @@
     "parcel": "2.5.0",
     "postcss": "^8.4.16",
     "postcss-modules": "^4.3.1",
-    "react": "~18.1.0",
-    "react-bootstrap": "2.4.0",
-    "react-dom": "~18.1.0",
     "typescript": "^4.7.4"
   }
 }

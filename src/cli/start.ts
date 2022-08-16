@@ -1,9 +1,10 @@
 import { program } from 'commander';
+import { clear, print } from '../utils/console';
+import { toAsciiArt } from '../utils/strings';
 import { create } from './create';
 import { update } from './update';
 import { watch } from './watch';
-import { clear, print } from '../utils/console';
-import { toAsciiArt } from '../utils/strings';
+import { pack } from './pack';
 
 program
   .name('scrowl-builder')
@@ -30,6 +31,13 @@ program
   .description('Watches for changes in manifest then updates')
   .action(() => {
     watch();
+  });
+
+program
+  .command('pack')
+  .description('Packages the template so that it can be imported into Scrowl')
+  .action (() => {
+    pack();
   });
 
 export const start = () => {

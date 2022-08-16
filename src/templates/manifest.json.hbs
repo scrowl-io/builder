@@ -1,7 +1,13 @@
+{{#with . as | data |}}
 {
   "version": "1.0.0",
   "slide": {
     "aspect": "16:9"
+  },
+  "meta": {
+    "name": "{{data.name}}",
+    "filename": "{{data.kebab}}",
+    "component": "{{data.pascal}}"
   },
   "elements": {
     "componentExample": {
@@ -10,3 +16,4 @@
     }
   }
 }
+{{/with}}

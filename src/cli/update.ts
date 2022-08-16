@@ -13,7 +13,7 @@ export const update = () => {
     return;
   }
 
-  const appRes = toLocal('templates/dev/index.html.hbs');
+  const appRes = toLocal('templates/dev/src/index.html.hbs');
 
   if (appRes.error) {
     log(appRes.message, 'error');
