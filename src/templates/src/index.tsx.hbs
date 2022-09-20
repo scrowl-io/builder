@@ -9,8 +9,10 @@ export interface {{data.pascal}}Props {
 }
 
 export const {{data.pascal}} = ({ manifest }: {{data.pascal}}Props) => {
+  const classes = styles["{{data.kebab}}"]
+
   return (
-    <div className={styles.imageGrid}>
+    <div className={classes}>
       <ComponentExample options={manifest.componentExample} />
     </div>
   )
