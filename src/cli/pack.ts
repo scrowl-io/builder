@@ -19,7 +19,7 @@ export const pack = () => {
   }
 
   const manifest = JSON.parse(manifestRes.data.contents);
-  const archiveRes = archiveLocal('./build', `./dist/scrowl-slide-template-${manifest.meta.filename}.zip`);
+  const archiveRes = archiveLocal('./build', `./dist/template-${manifest.meta.filename}.zip`);
 
   if (archiveRes.error) {
     log(archiveRes.message, 'error');
