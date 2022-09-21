@@ -1,14 +1,17 @@
 {{#with . as | data |}}
 {
   "name": "scrowl-slide-template-{{{data.kebab}}}",
-  "main": "./build/index.js",
+  "version": "0.0.1",
+  "prod": "./build/template-{{{data.kebab}}}.js",
   "dev": "./dev/index.html",
   "targets": {
-    "main": {
+    "prod": {
       "source": "./src/index.tsx",
-      "context": "browser",
+      "includeNodeModules": false,
+      "outputFormat": "esmodule",
       "isLibrary": true,
-      "distDir": "./build"
+      "optimize": false,
+      "publicUrl": "./"
     },
     "dev": {
       "source": "./dev/src/index.html",
@@ -20,7 +23,9 @@
     "watch": "scrowl-builder watch",
     "serve": "parcel serve --target dev --dist-dir ./dev --no-cache --open",
     "start": "concurrently --raw \"npm run serve\" \"npm run watch\"",
-    "build": "parcel build --target main",
+    "clean": "rimraf ./build",
+    "prebuild": "npm run clean",
+    "build": "parcel build --target prod --no-cache",
     "postbuild": "scrowl-builder pack"
   },
   "dependencies": {
@@ -42,6 +47,7 @@
     "parcel": "2.5.0",
     "postcss": "^8.4.16",
     "postcss-modules": "^4.3.1",
+    "rimraf": "^3.0.2",
     "typescript": "^4.7.4"
   }
 }

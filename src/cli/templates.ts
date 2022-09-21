@@ -1,5 +1,5 @@
 import { FSResult } from '../utils/file-system.types';
-import { getPath, readFile, getExt, getPathLocal } from '../utils/file-system';
+import { getPath, readFile, getExt, getPathLocal, writeFile } from '../utils/file-system';
 
 export const toLocal = (filename: string): FSResult => {
   const pathRes = getPath(filename);
@@ -45,6 +45,16 @@ export const fromLocal = (filename: string): FSResult => {
 
   return readFile(pathRes.data.url);
 }
+
+export const writeLocal = (filename: string, contents: string): FSResult => {
+  const pathRes = getPathLocal(filename);
+
+  if (pathRes.error) {
+    return pathRes;
+  }
+
+  return writeFile(pathRes.data.url, contents);
+};
 
 export default {
   toLocal,

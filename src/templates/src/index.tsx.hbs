@@ -1,7 +1,7 @@
 {{#with . as | data |}}
 import React from 'react';
 import * as styles from './styles.module.scss';
-import { ManifestElements } from "./slide"
+import { ManifestElements } from "../dev/src/slide.types";
 import { ComponentExample } from "./components"
 
 export interface {{data.pascal}}Props {
@@ -9,8 +9,10 @@ export interface {{data.pascal}}Props {
 }
 
 export const {{data.pascal}} = ({ manifest }: {{data.pascal}}Props) => {
+  const classes = styles["{{data.kebab}}"]
+
   return (
-    <div className={styles.imageGrid}>
+    <div className={classes}>
       <ComponentExample options={manifest.componentExample} />
     </div>
   )

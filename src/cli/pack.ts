@@ -1,8 +1,33 @@
 import { log } from '../utils/console';
 import { copyLocal, archiveLocal } from '../utils/file-system';
-import { fromLocal } from './templates';
+import { fromLocal, writeLocal } from './templates';
 
-export const pack = () => {
+const removeStylesheet = () => {
+  try {
+    const pkgRes = fromLocal('./package.json');
+
+    if (pkgRes.error) {
+      console.error('Unable to read package.json', pkgRes);
+      return pkgRes;
+    }
+
+    const pkg = JSON.parse(pkgRes.data.contents);
+    const tplRes = fromLocal(pkg.prod);
+
+    if (tplRes.error) {
+      console.error('Unable to read template build', tplRes);
+      return tplRes;
+    }
+
+    const template = tplRes.data.contents.replace(/^import "\.\/(.*)\.css";/g, '');
+
+    return writeLocal(pkg.prod, template);
+  } catch (e) {
+    console.error('Failed to reformat build file', e);
+  }
+};
+
+export const pack = async () => {
   log('\nCreating package archive', 'log');
   const manifestRes = fromLocal('./manifest.json');
 
@@ -19,6 +44,7 @@ export const pack = () => {
   }
 
   const manifest = JSON.parse(manifestRes.data.contents);
+  removeStylesheet();
   const archiveRes = archiveLocal('./build', `./dist/template-${manifest.meta.filename}.zip`);
 
   if (archiveRes.error) {
